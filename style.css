@@ -59,6 +59,7 @@ img.img-ice-block {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border-color: transparent !important;
+    border-radius: 0;
     box-shadow: none;
   }
 }
