@@ -24,6 +24,7 @@
 
     if (!mobileMq.matches) {
       showNav();
+      navbar.classList.remove(hiddenClass);
       navbar.classList.toggle(scrolledClass, y > 16);
       lastY = y;
       return;
