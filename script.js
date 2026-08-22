@@ -2,8 +2,9 @@
   const navbar = document.querySelector(".navbar_component");
   if (!navbar) return;
 
-  const mq = window.matchMedia("(max-width: 991px)");
+  const mobileMq = window.matchMedia("(max-width: 991px)");
   const hiddenClass = "is-nav-hidden";
+  const scrolledClass = "is-nav-scrolled";
   let lastY = window.scrollY;
   let ticking = false;
 
@@ -19,13 +20,23 @@
   }
 
   function updateNav() {
-    if (!mq.matches || menuIsOpen()) {
+    const y = window.scrollY;
+
+    if (!mobileMq.matches) {
       showNav();
-      lastY = window.scrollY;
+      navbar.classList.toggle(scrolledClass, y > 16);
+      lastY = y;
       return;
     }
 
-    const y = window.scrollY;
+    navbar.classList.remove(scrolledClass);
+
+    if (menuIsOpen()) {
+      showNav();
+      lastY = y;
+      return;
+    }
+
     if (y > lastY && y > 16) {
       navbar.classList.add(hiddenClass);
     } else if (y < lastY) {
@@ -48,7 +59,10 @@
     { passive: true }
   );
 
-  mq.addEventListener("change", function () {
-    if (!mq.matches) showNav();
+  mobileMq.addEventListener("change", function () {
+    if (!mobileMq.matches) showNav();
+    updateNav();
   });
+
+  updateNav();
 })();
