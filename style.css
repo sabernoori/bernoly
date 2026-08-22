@@ -1,0 +1,34 @@
+.navbar_dropdown-toggle > a,
+.navbar_dropdown-toggle .drop-icon1 {
+  transition: color 300ms ease;
+}
+
+/* Hover the dropdown toggle (icon / padding): brand color on text + icon */
+.navbar_dropdown-toggle:hover > a,
+.navbar_dropdown-toggle:hover:not(:has(> a:hover)) .drop-icon1 {
+  color: var(--color-scheme-1--brand);
+}
+
+/* Hover only the inner text link: brand on that link, icon stays default */
+.navbar_dropdown-toggle > a:hover {
+  color: var(--color-scheme-1--brand);
+}
+
+img.img-ice-block {
+  display: none !important;
+}
+
+.img-ice-block:not(img) {
+  pointer-events: none;
+}
+
+@media screen and (max-width: 991px) {
+  .navbar_component {
+    transition: transform 300ms ease;
+  }
+
+  .navbar_component.is-nav-hidden {
+    transform: translateY(calc(-100% - 2rem));
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+package-lock.json
+package.json
+ice-blocks-embed.html
+.tmp-ice/
+*.log
+.DS_Store
+Thumbs.db
