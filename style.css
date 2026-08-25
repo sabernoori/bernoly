@@ -121,6 +121,20 @@ img.img-ice-block {
   transition: fill 300ms ease;
 }
 
+@media (hover: none) {
+  .tech_feature-item,
+  .tech_feature-item .ai-tech-card-icon-circle-new,
+  .tech_feature-item .icon-in-circle-new,
+  .tech_feature-item .icon_arrow,
+  .tech_feature-item .tech_feature-item-top,
+  .tech_feature-item .heading-style-h5,
+  .tech_feature-item .paragraph-114,
+  .tech_feature-item .tech-glow,
+  .tech_feature-item .tech-glow path {
+    transition: none;
+  }
+}
+
 .tech_feature-item:hover,
 .tech_feature-item:focus-visible {
   background-color: #fff;
