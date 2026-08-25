@@ -18,6 +18,15 @@ img.img-ice-block {
   display: none !important;
 }
 
+.product-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 .img-ice-block:not(img) {
   pointer-events: none;
 }
