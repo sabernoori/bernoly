@@ -98,37 +98,47 @@ img.img-ice-block {
 
 .tech_feature-item,
 .tech_feature-item * {
-  transition: none;
+  transition: none !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .tech_feature-item {
+  .tech_feature-item:hover,
+  .tech_feature-item:focus-visible {
     transition:
       background-color 300ms ease,
       border-color 300ms ease,
-      color 300ms ease;
+      color 300ms ease !important;
   }
 
-  .tech_feature-item .ai-tech-card-icon-circle-new,
-  .tech_feature-item .icon-in-circle-new,
-  .tech_feature-item .icon_arrow,
-  .tech_feature-item .tech_feature-item-top,
-  .tech_feature-item .heading-style-h5,
-  .tech_feature-item .paragraph-114,
-  .tech_feature-item .features_icon-holder {
+  .tech_feature-item:hover .ai-tech-card-icon-circle-new,
+  .tech_feature-item:focus-visible .ai-tech-card-icon-circle-new,
+  .tech_feature-item:hover .icon-in-circle-new,
+  .tech_feature-item:focus-visible .icon-in-circle-new,
+  .tech_feature-item:hover .icon_arrow,
+  .tech_feature-item:focus-visible .icon_arrow,
+  .tech_feature-item:hover .tech_feature-item-top,
+  .tech_feature-item:focus-visible .tech_feature-item-top,
+  .tech_feature-item:hover .heading-style-h5,
+  .tech_feature-item:focus-visible .heading-style-h5,
+  .tech_feature-item:hover .paragraph-114,
+  .tech_feature-item:focus-visible .paragraph-114,
+  .tech_feature-item:hover .features_icon-holder,
+  .tech_feature-item:focus-visible .features_icon-holder {
     transition:
       background-color 300ms ease,
       border-color 300ms ease,
       box-shadow 300ms ease,
-      color 300ms ease;
+      color 300ms ease !important;
   }
 
-  .tech_feature-item .tech-glow {
-    transition: opacity 300ms ease;
+  .tech_feature-item:hover .tech-glow,
+  .tech_feature-item:focus-visible .tech-glow {
+    transition: opacity 300ms ease !important;
   }
 
-  .tech_feature-item .tech-glow path {
-    transition: fill 300ms ease;
+  .tech_feature-item:hover .tech-glow path,
+  .tech_feature-item:focus-visible .tech-glow path {
+    transition: fill 300ms ease !important;
   }
 }
 
