@@ -212,55 +212,8 @@ img.img-ice-block {
   padding: 2.5rem;
 }
 
-
-
-/* Process stack: keep Webflow display/padding. Do not use padding-bottom %
-   for card height — that % is the parent width and stretched the cards. */
-.page-wrapper,
-.main-wrapper,
-.section_process,
-.process_container,
-.process_cards-list {
-  overflow: visible;
-}
-
-.process_cards-list {
-  --stack-cards-gap: 0.75rem;
-}
-
-.process_heading.is-list-title {
-  position: sticky;
-  top: 6rem;
-  /* Below the cards so the stack paints over the title on the way out */
-  z-index: 0 !important;
-}
-
-.process_card-item {
-  position: sticky;
-  top: 12rem;
-  transform-origin: center top;
-}
-
-.process_cards-list > .process_card-item:nth-of-type(1) {
-  z-index: 2;
-}
-.process_cards-list > .process_card-item:nth-of-type(2) {
-  z-index: 3;
-}
-.process_cards-list > .process_card-item:nth-of-type(3) {
-  z-index: 4;
-}
-.process_cards-list > .process_card-item:nth-of-type(4) {
-  z-index: 5;
-}
-
-.process_card > .process_heading {
-  margin-block: 0;
-}
-
 /* Solution pages (sales, underwriting, customer service, claims, policy
-   admin) share this layout. page-wrapper is overflow:visible for sticky
-   process cards, so these children were widening the document on mobile. */
+   admin) share this layout. Decorative overflow was widening the page. */
 html {
   overflow-x: hidden;
   overflow-x: clip;
