@@ -94,44 +94,41 @@ img.img-ice-block {
 /* Tech feature cards — hover matches Figma "On Hover" (white card, teal border/glows) */
 .tech_feature-item {
   border: 1px solid transparent;
-  transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease;
 }
 
-.tech_feature-item .ai-tech-card-icon-circle-new,
-.tech_feature-item .icon-in-circle-new,
-.tech_feature-item .icon_arrow,
-.tech_feature-item .tech_feature-item-top,
-.tech_feature-item .heading-style-h5,
-.tech_feature-item .paragraph-114 {
-  transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    box-shadow 300ms ease,
-    color 300ms ease;
+.tech_feature-item,
+.tech_feature-item * {
+  transition: none;
 }
 
-.tech_feature-item .tech-glow {
-  transition: opacity 300ms ease;
-}
+@media (hover: hover) and (pointer: fine) {
+  .tech_feature-item {
+    transition:
+      background-color 300ms ease,
+      border-color 300ms ease,
+      color 300ms ease;
+  }
 
-.tech_feature-item .tech-glow path {
-  transition: fill 300ms ease;
-}
-
-@media (hover: none) {
-  .tech_feature-item,
   .tech_feature-item .ai-tech-card-icon-circle-new,
   .tech_feature-item .icon-in-circle-new,
   .tech_feature-item .icon_arrow,
   .tech_feature-item .tech_feature-item-top,
   .tech_feature-item .heading-style-h5,
   .tech_feature-item .paragraph-114,
-  .tech_feature-item .tech-glow,
+  .tech_feature-item .features_icon-holder {
+    transition:
+      background-color 300ms ease,
+      border-color 300ms ease,
+      box-shadow 300ms ease,
+      color 300ms ease;
+  }
+
+  .tech_feature-item .tech-glow {
+    transition: opacity 300ms ease;
+  }
+
   .tech_feature-item .tech-glow path {
-    transition: none;
+    transition: fill 300ms ease;
   }
 }
 
