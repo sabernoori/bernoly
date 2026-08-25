@@ -212,6 +212,123 @@ img.img-ice-block {
   padding: 2.5rem;
 }
 
+/* Process cards: sticky 100vh flex stage. Title + current card stay
+   centered; cards overlay so the group height never jumps. */
+.page-wrapper,
+.main-wrapper,
+.section_process {
+  overflow: visible;
+}
+
+.section_process > .padding-global {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: none;
+  padding: 6rem 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.section_process .container-large,
+.section_process .process_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.section_process .process_cards-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: visible;
+}
+
+.section_process .process_heading.is-list-title {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  width: min(58rem, 90%);
+  max-width: 58rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.section_process .process_card-item {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: min(58rem, 90%);
+  max-width: 58rem;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.section_process .process_card-item ~ .process_card-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section_process .process_card-item:first-of-type {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section_process,
+  .section_process > .padding-global,
+  .section_process .container-large,
+  .section_process .process_container,
+  .section_process .process_cards-list {
+    height: auto !important;
+  }
+
+  .section_process > .padding-global,
+  .section_process .process_container {
+    position: relative !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .section_process .process_card-item,
+  .section_process .process_card-item ~ .process_card-item {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    margin-bottom: 1.25rem;
+    will-change: auto;
+  }
+}
+
 /* Solution pages (sales, underwriting, customer service, claims, policy
    admin) share this layout. Decorative overflow was widening the page. */
 html {
