@@ -83,9 +83,15 @@
 
   section.style.setProperty("--process-card-count", String(count));
 
+  function easeInOut(t) {
+    if (t <= 0) return 0;
+    if (t >= 1) return 1;
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
   function cardMotion(index, progress) {
     var unit = 1 / count;
-    var fade = unit * 0.28;
+    var fade = unit * 0.45;
     var start = index * unit;
     var shown = start + fade;
     var leave = (index + 1) * unit - fade;
@@ -98,7 +104,7 @@
         opacity = 0;
         from = 1;
       } else if (progress < shown) {
-        opacity = (progress - start) / fade;
+        opacity = easeInOut((progress - start) / fade);
         from = 1 - opacity;
       } else {
         opacity = 1;
@@ -111,13 +117,13 @@
       opacity = 0;
       from = 1;
     } else if (progress < shown) {
-      opacity = (progress - start) / fade;
+      opacity = easeInOut((progress - start) / fade);
       from = 1 - opacity;
     } else if (progress < leave) {
       opacity = 1;
       from = 0;
     } else if (progress < gone) {
-      opacity = 1 - (progress - leave) / fade;
+      opacity = 1 - easeInOut((progress - leave) / fade);
       from = -(1 - opacity);
     } else {
       opacity = 0;
@@ -141,15 +147,16 @@
 
     var progress = pinProgress();
     var desktop = desktopMq.matches;
-    var distance = desktop ? 56 : 40;
+    var edgeX = window.innerWidth;
+    var edgeY = window.innerHeight;
 
     for (var i = 0; i < count; i++) {
       var motion = cardMotion(i, progress);
       var el = items[i];
-      var x = desktop ? motion.from * distance : 0;
-      var y = desktop ? 0 : motion.from * distance;
+      var x = desktop ? motion.from * edgeX : 0;
+      var y = desktop ? 0 : motion.from * edgeY;
       el.style.opacity = String(motion.opacity);
-      el.style.transform = "translate3d(" + x + "%, " + y + "%, 0)";
+      el.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";
       el.style.pointerEvents = motion.opacity > 0.55 ? "auto" : "none";
     }
   }
