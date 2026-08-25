@@ -1,16 +1,16 @@
-.navbar_dropdown-toggle > a,
+.navbar_dropdown-toggle>a,
 .navbar_dropdown-toggle .drop-icon1 {
   transition: color 300ms ease;
 }
 
 /* Hover the dropdown toggle (icon / padding): brand color on text + icon */
-.navbar_dropdown-toggle:hover > a,
+.navbar_dropdown-toggle:hover>a,
 .navbar_dropdown-toggle:hover:not(:has(> a:hover)) .drop-icon1 {
   color: var(--color-scheme-1--brand);
 }
 
 /* Hover only the inner text link: brand on that link, icon stays default */
-.navbar_dropdown-toggle > a:hover {
+.navbar_dropdown-toggle>a:hover {
   color: var(--color-scheme-1--brand);
 }
 
@@ -22,7 +22,23 @@ img.img-ice-block {
   pointer-events: none;
 }
 
+/* Ice Blocks inherits 120vw / 140vw on tablet & mobile. Clip the hero
+   so that extra width cannot create page scroll; center so it bleeds
+   both sides instead of only to the right. */
+.section_home-hero {
+  overflow: clip;
+}
+
+@media screen and (max-width: 767px) {
+  .img-ice-block:not(img) {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
 @media screen and (min-width: 992px) {
+
   .nav-wrapper,
   .navbar_component {
     z-index: 9999;
@@ -149,4 +165,64 @@ img.img-ice-block {
 .tech_feature-item:hover .tech-glow path,
 .tech_feature-item:focus-visible .tech-glow path {
   fill: var(--color-scheme-1--brand, #09bab7);
+}
+
+
+
+
+
+
+/*  */
+
+
+.video_card-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem;
+}
+
+
+
+/* Process stack: keep Webflow display/padding. Do not use padding-bottom %
+   for card height — that % is the parent width and stretched the cards. */
+.page-wrapper,
+.main-wrapper,
+.section_process,
+.process_container,
+.process_cards-list {
+  overflow: visible;
+}
+
+.process_cards-list {
+  --stack-cards-gap: 0.75rem;
+}
+
+.process_heading.is-list-title {
+  position: sticky;
+  top: 6rem;
+  /* Below the cards so the stack paints over the title on the way out */
+  z-index: 0 !important;
+}
+
+.process_card-item {
+  position: sticky;
+  top: 12rem;
+  transform-origin: center top;
+}
+
+.process_cards-list > .process_card-item:nth-of-type(1) {
+  z-index: 2;
+}
+.process_cards-list > .process_card-item:nth-of-type(2) {
+  z-index: 3;
+}
+.process_cards-list > .process_card-item:nth-of-type(3) {
+  z-index: 4;
+}
+.process_cards-list > .process_card-item:nth-of-type(4) {
+  z-index: 5;
+}
+
+.process_card > .process_heading {
+  margin-block: 0;
 }
