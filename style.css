@@ -221,6 +221,77 @@ img.img-ice-block {
   padding: 2.5rem;
 }
 
+/* Product hero: desktop/mobile background video under Webflow text. */
+.product_header-video-embed {
+  line-height: 0;
+  background-color: #09bab7;
+}
+
+.product_header-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: #09bab7;
+}
+
+.product_header-video_el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+@media screen and (min-width: 992px) {
+  .product_header-video_el.is-desktop {
+    width: 110%;
+    height: 110%;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.product_header-video_el.is-mobile {
+  display: none;
+}
+
+.button.product_header-btn:hover {
+  background-color: #f4f4f4;
+  color: #09bab7;
+  border-color: #f4f4f4;
+}
+
+@media screen and (max-width: 991px) {
+  .product_header-video_el.is-desktop {
+    object-position: right center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product_header-video_el.is-desktop {
+    display: none;
+  }
+
+  .product_header-video_el.is-mobile {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product_header-video_el {
+    display: none !important;
+  }
+}
+
 /* Process cards: sticky 100vh flex stage. Title + current card stay
    centered; cards overlay so the group height never jumps. */
 .page-wrapper,

@@ -208,3 +208,38 @@
   render();
 })();
 
+(function () {
+  var root = document.querySelector(".product_header-wrapper");
+  if (!root) return;
+
+  var desktop = root.querySelector(".product_header-video_el.is-desktop");
+  var mobile = root.querySelector(".product_header-video_el.is-mobile");
+  if (!desktop || !mobile) return;
+
+  var mq = window.matchMedia("(max-width: 767px)");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function apply() {
+    var useMobile = mq.matches;
+    var show = useMobile ? mobile : desktop;
+    var hide = useMobile ? desktop : mobile;
+
+    hide.pause();
+
+    if (reduce.matches) {
+      show.pause();
+      return;
+    }
+
+    var play = show.play();
+    if (play && typeof play.catch === "function") play.catch(function () {});
+  }
+
+  if (mq.addEventListener) mq.addEventListener("change", apply);
+  else mq.addListener(apply);
+  if (reduce.addEventListener) reduce.addEventListener("change", apply);
+  else reduce.addListener(apply);
+
+  apply();
+})();
+
