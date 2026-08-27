@@ -74,6 +74,7 @@
   if (!section || !list) return;
 
   var items = list.querySelectorAll(":scope > .process_card-item");
+  var heading = list.querySelector(".process_heading.is-list-title");
   var count = items.length;
   if (!count) return;
 
@@ -157,6 +158,23 @@
     return Math.max(0, Math.min(1, -rect.top / range));
   }
 
+  function listGap() {
+    var styles = window.getComputedStyle(list);
+    var gap = parseFloat(styles.rowGap);
+    if (isNaN(gap)) gap = parseFloat(styles.gap);
+    return isNaN(gap) ? 0 : gap;
+  }
+
+  // On mobile, cards travel up over the title. Keep them solid until the
+  // card has cleared the heading, then fade out on the remaining travel.
+  function leaveOpacity(el, y, travelY) {
+    var up = -y;
+    var passY = (heading ? heading.offsetHeight : 0) + listGap() + el.offsetHeight;
+    var fadeStart = Math.min(passY, travelY * 0.78);
+    if (up <= fadeStart) return 1;
+    return 1 - smootherstep((up - fadeStart) / Math.max(travelY - fadeStart, 1));
+  }
+
   function render() {
     ticking = false;
     if (reducedMq.matches) return;
@@ -173,10 +191,12 @@
       var travelY = (viewH + el.offsetHeight) / 2;
       var x = desktop ? motion.from * travelX : 0;
       var y = desktop ? 0 : motion.from * travelY;
-      el.style.opacity = String(motion.opacity);
+      var opacity =
+        !desktop && y < 0 ? leaveOpacity(el, y, travelY) : motion.opacity;
+      el.style.opacity = String(opacity);
       el.style.transform =
         "translate3d(" + x + "px, " + y + "px, 0) scale(" + motion.scale + ")";
-      el.style.pointerEvents = motion.opacity > 0.55 ? "auto" : "none";
+      el.style.pointerEvents = opacity > 0.55 ? "auto" : "none";
     }
   }
 
