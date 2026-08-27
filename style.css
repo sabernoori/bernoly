@@ -334,9 +334,6 @@ img.img-ice-block {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
-  width: 100%;
-  height: auto;
   position: relative;
   overflow: visible;
 }
@@ -345,10 +342,7 @@ img.img-ice-block {
   position: relative;
   z-index: 2;
   flex: 0 0 auto;
-  width: min(58rem, 90%);
-  max-width: 58rem;
   margin: 0;
-  padding: 0;
   text-align: center;
 }
 
@@ -356,8 +350,6 @@ img.img-ice-block {
   position: relative;
   z-index: 1;
   flex: 0 0 auto;
-  width: min(58rem, 90%);
-  max-width: 58rem;
   margin: 0;
   opacity: 0;
   pointer-events: none;
