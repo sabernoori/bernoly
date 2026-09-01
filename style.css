@@ -327,16 +327,6 @@ img.img-ice-block {
   height: auto;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-}
-
-.section_process .process_cards-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
 }
 
 .section_process .process_heading.is-list-title {
@@ -349,7 +339,6 @@ img.img-ice-block {
 .section_process .process_card-item {
   position: relative;
   z-index: 2;
-  flex: 0 0 auto;
   opacity: 0;
   pointer-events: none;
   transform: translate3d(0, calc(100% + 5rem), 0);
@@ -369,15 +358,6 @@ img.img-ice-block {
   opacity: 0;
   pointer-events: none;
   transform: translate3d(0, calc(-100% - 5rem), 0);
-}
-
-.section_process .process_card-item:first-of-type {
-  overflow: hidden;
-}
-
-.section_process .process_card-item ~ .process_card-item {
-  position: absolute;
-  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

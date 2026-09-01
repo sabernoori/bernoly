@@ -89,20 +89,8 @@
     return el.offsetHeight + 5 * rem;
   }
 
-  function syncSlot() {
-    var slot = items[0];
-    var top = slot.offsetTop;
-    var left = slot.offsetLeft;
-    var width = slot.offsetWidth;
-    var height = slot.offsetHeight;
-    for (var i = 1; i < count; i++) {
-      items[i].style.top = top + "px";
-      items[i].style.left = left + "px";
-      items[i].style.width = width + "px";
-      items[i].style.height = height + "px";
-      items[i].style.right = "auto";
-      items[i].style.bottom = "auto";
-    }
+  function slotY(el) {
+    return items[0].offsetTop - el.offsetTop;
   }
 
   function setTrackHeight() {
@@ -131,23 +119,24 @@
   }
 
   function applyState(el, state, instant) {
+    var slot = slotY(el);
     var y = travelY(el);
     el.style.transition = instant
       ? "none"
       : "transform 900ms ease-out, opacity 900ms ease-out";
     if (state === "in") {
       el.style.opacity = "1";
-      el.style.transform = "translate3d(0, 0, 0)";
+      el.style.transform = "translate3d(0, " + slot + "px, 0)";
       el.style.pointerEvents = "auto";
       el.style.zIndex = "3";
     } else if (state === "out") {
       el.style.opacity = "0";
-      el.style.transform = "translate3d(0, " + -y + "px, 0)";
+      el.style.transform = "translate3d(0, " + (slot - y) + "px, 0)";
       el.style.pointerEvents = "none";
       el.style.zIndex = "1";
     } else {
       el.style.opacity = "0";
-      el.style.transform = "translate3d(0, " + y + "px, 0)";
+      el.style.transform = "translate3d(0, " + (slot + y) + "px, 0)";
       el.style.pointerEvents = "none";
       el.style.zIndex = "2";
     }
@@ -160,7 +149,6 @@
     ticking = false;
     if (reducedMq.matches) return;
     readRem();
-    syncSlot();
     var progress = pinProgress();
     for (var i = 0; i < count; i++) {
       applyState(items[i], cardState(i, progress), instant);
@@ -182,12 +170,6 @@
     el.style.transform = "";
     el.style.pointerEvents = "";
     el.style.zIndex = "";
-    el.style.top = "";
-    el.style.left = "";
-    el.style.width = "";
-    el.style.height = "";
-    el.style.right = "";
-    el.style.bottom = "";
   }
 
   function onChange() {
@@ -202,7 +184,6 @@
 
   readRem();
   setTrackHeight();
-  syncSlot();
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onChange, { passive: true });
   reducedMq.addEventListener("change", onChange);
