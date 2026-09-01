@@ -79,7 +79,15 @@
 
   var reducedMq = window.matchMedia("(prefers-reduced-motion: reduce)");
   var ticking = false;
-  var booted = false;
+  var rem = 16;
+
+  function readRem() {
+    rem = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+  }
+
+  function travelY(el) {
+    return el.offsetHeight + 5 * rem;
+  }
 
   function setTrackHeight() {
     if (reducedMq.matches) {
@@ -107,25 +115,39 @@
   }
 
   function applyState(el, state, instant) {
-    if (instant) el.style.transition = "none";
+    var y = travelY(el);
+    el.style.transition = instant
+      ? "none"
+      : "transform 900ms ease-out, opacity 900ms ease-out";
+    if (state === "in") {
+      el.style.opacity = "1";
+      el.style.transform = "translate3d(0, 0, 0)";
+      el.style.pointerEvents = "auto";
+      el.style.zIndex = "3";
+    } else if (state === "out") {
+      el.style.opacity = "0";
+      el.style.transform = "translate3d(0, " + -y + "px, 0)";
+      el.style.pointerEvents = "none";
+      el.style.zIndex = "1";
+    } else {
+      el.style.opacity = "0";
+      el.style.transform = "translate3d(0, " + y + "px, 0)";
+      el.style.pointerEvents = "none";
+      el.style.zIndex = "2";
+    }
     el.classList.toggle("is-in", state === "in");
     el.classList.toggle("is-out", state === "out");
-    if (instant) {
-      el.offsetHeight;
-      el.style.transition = "";
-    }
+    if (instant) el.offsetHeight;
   }
 
   function render(instant) {
     ticking = false;
     if (reducedMq.matches) return;
-
+    readRem();
     var progress = pinProgress();
-    var skipMotion = instant || !booted;
     for (var i = 0; i < count; i++) {
-      applyState(items[i], cardState(i, progress), skipMotion);
+      applyState(items[i], cardState(i, progress), instant);
     }
-    booted = true;
   }
 
   function onScroll() {
@@ -136,24 +158,39 @@
     });
   }
 
+  function clearInline(el) {
+    el.classList.remove("is-in", "is-out");
+    el.style.transition = "";
+    el.style.opacity = "";
+    el.style.transform = "";
+    el.style.pointerEvents = "";
+    el.style.zIndex = "";
+  }
+
   function onChange() {
     if (reducedMq.matches) {
       setTrackHeight();
-      for (var i = 0; i < count; i++) {
-        items[i].classList.remove("is-in", "is-out");
-        items[i].style.transition = "";
-      }
+      for (var i = 0; i < count; i++) clearInline(items[i]);
       return;
     }
     setTrackHeight();
     render(true);
   }
 
+  readRem();
   setTrackHeight();
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onChange, { passive: true });
   reducedMq.addEventListener("change", onChange);
-  render(true);
+
+  items.forEach(function (el) {
+    applyState(el, "waiting", true);
+  });
+  window.requestAnimationFrame(function () {
+    window.requestAnimationFrame(function () {
+      render(false);
+    });
+  });
 })();
 
 (function () {

@@ -312,7 +312,7 @@ img.img-ice-block {
   max-width: none;
   padding: 6rem 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .section_process .container-large,
@@ -327,6 +327,7 @@ img.img-ice-block {
   height: auto;
   margin: 0;
   padding: 0;
+  overflow: visible;
 }
 
 .section_process .process_cards-list {
@@ -347,25 +348,27 @@ img.img-ice-block {
 
 .section_process .process_card-item {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   flex: 0 0 auto;
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(0, 5rem, 0);
+  transform: translate3d(0, calc(100% + 5rem), 0);
   transition: transform 900ms ease-out, opacity 900ms ease-out;
   will-change: transform, opacity;
 }
 
 .section_process .process_card-item.is-in {
+  z-index: 3;
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
 }
 
 .section_process .process_card-item.is-out {
+  z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(0, -5rem, 0);
+  transform: translate3d(0, calc(-100% - 5rem), 0);
 }
 
 .section_process .process_card-item ~ .process_card-item {
