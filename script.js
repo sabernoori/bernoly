@@ -74,15 +74,12 @@
   if (!section || !list) return;
 
   var items = list.querySelectorAll(":scope > .process_card-item");
-  var heading = list.querySelector(".process_heading.is-list-title");
   var count = items.length;
   if (!count) return;
 
   var reducedMq = window.matchMedia("(prefers-reduced-motion: reduce)");
   var ticking = false;
-  var scaleMin = 0.92;
-  var unit = 1 / count;
-  var fade = unit * 0.58;
+  var booted = false;
 
   function setTrackHeight() {
     if (reducedMq.matches) {
@@ -90,63 +87,6 @@
       return;
     }
     section.style.height = "calc(100vh * " + (count + 1.5) + ")";
-  }
-
-  function clamp01(t) {
-    if (t <= 0) return 0;
-    if (t >= 1) return 1;
-    return t;
-  }
-
-  function smootherstep(t) {
-    t = clamp01(t);
-    return t * t * t * (t * (t * 6 - 15) + 10);
-  }
-
-  function cardMotion(index, progress) {
-    var start = index * unit;
-    var shown = start + fade;
-    var leave = (index + 1) * unit;
-    var gone = leave + fade;
-    var from = 1;
-    var opacity = 0;
-    var scale = scaleMin;
-
-    function enterAt(t) {
-      var eased = smootherstep(t);
-      from = 1 - eased;
-      opacity = eased;
-      scale = scaleMin + (1 - scaleMin) * eased;
-    }
-
-    function leaveAt(t) {
-      var eased = smootherstep(t);
-      from = -eased;
-      opacity = 1 - eased;
-      scale = 1 - (1 - scaleMin) * eased;
-    }
-
-    if (index === count - 1) {
-      if (progress <= start) enterAt(0);
-      else if (progress < shown) enterAt((progress - start) / fade);
-      else {
-        from = 0;
-        opacity = 1;
-        scale = 1;
-      }
-      return { from: from, opacity: opacity, scale: scale };
-    }
-
-    if (progress <= start) enterAt(0);
-    else if (progress < shown) enterAt((progress - start) / fade);
-    else if (progress < leave) {
-      from = 0;
-      opacity = 1;
-      scale = 1;
-    } else if (progress < gone) leaveAt((progress - leave) / fade);
-    else leaveAt(1);
-
-    return { from: from, opacity: opacity, scale: scale };
   }
 
   function pinProgress() {
@@ -157,66 +97,63 @@
     return Math.max(0, Math.min(1, -rect.top / range));
   }
 
-  function listGap() {
-    var styles = window.getComputedStyle(list);
-    var gap = parseFloat(styles.rowGap);
-    if (isNaN(gap)) gap = parseFloat(styles.gap);
-    return isNaN(gap) ? 0 : gap;
+  function cardState(index, progress) {
+    var start = index / count;
+    var leave = (index + 1) / count;
+    if (index === count - 1) return progress >= start ? "in" : "waiting";
+    if (progress < start) return "waiting";
+    if (progress < leave) return "in";
+    return "out";
   }
 
-  function leaveOpacity(el, y, travelY) {
-    var up = -y;
-    var passY = (heading ? heading.offsetHeight : 0) + listGap() + el.offsetHeight;
-    var fadeStart = Math.min(passY, travelY * 0.78);
-    if (up <= fadeStart) return 1;
-    return 1 - smootherstep((up - fadeStart) / Math.max(travelY - fadeStart, 1));
+  function applyState(el, state, instant) {
+    if (instant) el.style.transition = "none";
+    el.classList.toggle("is-in", state === "in");
+    el.classList.toggle("is-out", state === "out");
+    if (instant) {
+      el.offsetHeight;
+      el.style.transition = "";
+    }
   }
 
-  function render() {
+  function render(instant) {
     ticking = false;
     if (reducedMq.matches) return;
 
     var progress = pinProgress();
-    var viewH = window.innerHeight;
-
+    var skipMotion = instant || !booted;
     for (var i = 0; i < count; i++) {
-      var motion = cardMotion(i, progress);
-      var el = items[i];
-      var travelY = (viewH + el.offsetHeight) / 2;
-      var y = motion.from * travelY;
-      var opacity = y < 0 ? leaveOpacity(el, y, travelY) : motion.opacity;
-      el.style.opacity = String(opacity);
-      el.style.transform =
-        "translate3d(0, " + y + "px, 0) scale(" + motion.scale + ")";
-      el.style.pointerEvents = opacity > 0.55 ? "auto" : "none";
+      applyState(items[i], cardState(i, progress), skipMotion);
     }
+    booted = true;
   }
 
   function onScroll() {
     if (ticking || reducedMq.matches) return;
     ticking = true;
-    window.requestAnimationFrame(render);
+    window.requestAnimationFrame(function () {
+      render(false);
+    });
   }
 
   function onChange() {
     if (reducedMq.matches) {
       setTrackHeight();
       for (var i = 0; i < count; i++) {
-        items[i].style.opacity = "";
-        items[i].style.transform = "";
-        items[i].style.pointerEvents = "";
+        items[i].classList.remove("is-in", "is-out");
+        items[i].style.transition = "";
       }
       return;
     }
     setTrackHeight();
-    render();
+    render(true);
   }
 
   setTrackHeight();
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onChange, { passive: true });
   reducedMq.addEventListener("change", onChange);
-  render();
+  render(true);
 })();
 
 (function () {

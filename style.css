@@ -351,8 +351,21 @@ img.img-ice-block {
   flex: 0 0 auto;
   opacity: 0;
   pointer-events: none;
-  transform-origin: center center;
+  transform: translate3d(0, 5rem, 0);
+  transition: transform 900ms ease-out, opacity 900ms ease-out;
   will-change: transform, opacity;
+}
+
+.section_process .process_card-item.is-in {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+.section_process .process_card-item.is-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, -5rem, 0);
 }
 
 .section_process .process_card-item ~ .process_card-item {
@@ -362,10 +375,6 @@ img.img-ice-block {
   bottom: 0;
   margin-left: auto;
   margin-right: auto;
-}
-
-.section_process .process_card-item:first-of-type {
-  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
