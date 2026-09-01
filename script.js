@@ -74,11 +74,11 @@
   if (!section || !list) return;
 
   var items = list.querySelectorAll(":scope > .process_card-item");
+  var heading = list.querySelector(".process_heading.is-list-title");
   var count = items.length;
   if (!count) return;
 
   var reducedMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var desktopMq = window.matchMedia("(min-width: 992px)");
   var ticking = false;
   var scaleMin = 0.92;
   var unit = 1 / count;
@@ -157,26 +157,38 @@
     return Math.max(0, Math.min(1, -rect.top / range));
   }
 
+  function listGap() {
+    var styles = window.getComputedStyle(list);
+    var gap = parseFloat(styles.rowGap);
+    if (isNaN(gap)) gap = parseFloat(styles.gap);
+    return isNaN(gap) ? 0 : gap;
+  }
+
+  function leaveOpacity(el, y, travelY) {
+    var up = -y;
+    var passY = (heading ? heading.offsetHeight : 0) + listGap() + el.offsetHeight;
+    var fadeStart = Math.min(passY, travelY * 0.78);
+    if (up <= fadeStart) return 1;
+    return 1 - smootherstep((up - fadeStart) / Math.max(travelY - fadeStart, 1));
+  }
+
   function render() {
     ticking = false;
     if (reducedMq.matches) return;
 
     var progress = pinProgress();
-    var desktop = desktopMq.matches;
-    var viewW = window.innerWidth;
     var viewH = window.innerHeight;
 
     for (var i = 0; i < count; i++) {
       var motion = cardMotion(i, progress);
       var el = items[i];
-      var travelX = (viewW + el.offsetWidth) / 2;
       var travelY = (viewH + el.offsetHeight) / 2;
-      var x = desktop ? motion.from * travelX : 0;
-      var y = desktop ? 0 : motion.from * travelY;
-      el.style.opacity = String(motion.opacity);
+      var y = motion.from * travelY;
+      var opacity = y < 0 ? leaveOpacity(el, y, travelY) : motion.opacity;
+      el.style.opacity = String(opacity);
       el.style.transform =
-        "translate3d(" + x + "px, " + y + "px, 0) scale(" + motion.scale + ")";
-      el.style.pointerEvents = motion.opacity > 0.55 ? "auto" : "none";
+        "translate3d(0, " + y + "px, 0) scale(" + motion.scale + ")";
+      el.style.pointerEvents = opacity > 0.55 ? "auto" : "none";
     }
   }
 
@@ -202,8 +214,7 @@
 
   setTrackHeight();
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
-  desktopMq.addEventListener("change", onChange);
+  window.addEventListener("resize", onChange, { passive: true });
   reducedMq.addEventListener("change", onChange);
   render();
 })();

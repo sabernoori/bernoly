@@ -340,30 +340,19 @@ img.img-ice-block {
 
 .section_process .process_heading.is-list-title {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   flex: 0 0 auto;
   text-align: center;
 }
 
 .section_process .process_card-item {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   flex: 0 0 auto;
   opacity: 0;
   pointer-events: none;
   transform-origin: center center;
   will-change: transform, opacity;
-}
-
-/* Mobile/tablet: cards travel vertically and must paint over the title. */
-@media screen and (max-width: 991px) {
-  .section_process .process_heading.is-list-title {
-    z-index: 1;
-  }
-
-  .section_process .process_card-item {
-    z-index: 3;
-  }
 }
 
 .section_process .process_card-item ~ .process_card-item {
