@@ -243,30 +243,17 @@
     return el.scrollWidth - el.clientWidth > 1;
   }
 
-  function wheelDeltaX(e) {
-    var dx = e.deltaX;
-    var dy = e.deltaY;
-    if (Math.abs(dx) > Math.abs(dy)) return dx;
-    return dy;
-  }
-
-  function scaleDelta(el, delta, mode) {
-    if (mode === 1) return delta * 16;
-    if (mode === 2) return delta * el.clientWidth;
-    return delta;
-  }
-
   lists.forEach(function (el) {
     el.addEventListener(
       "wheel",
       function (e) {
-        if (!canScroll(el)) return;
-        var max = el.scrollWidth - el.clientWidth;
-        var dx = scaleDelta(el, wheelDeltaX(e), e.deltaMode);
-        var next = Math.max(0, Math.min(max, el.scrollLeft + dx));
-        if (next === el.scrollLeft) return;
         e.preventDefault();
-        el.scrollLeft = next;
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          var dy = e.deltaY;
+          if (e.deltaMode === 1) dy *= 16;
+          else if (e.deltaMode === 2) dy *= window.innerHeight;
+          window.scrollBy(0, dy);
+        }
       },
       { passive: false }
     );
