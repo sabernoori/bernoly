@@ -412,22 +412,34 @@ html {
   max-width: 100%;
 }
 
-/* Keep overflow so JS can still scrollLeft; hide the native bar. */
+/* Blog row scrollbar: track, thumb, buttons, and corner all use brand. */
 .blog-box,
-.blog-box_list-wrapper,
-.blog-box_list-wrapper .w-dyn-list,
-.blog-box_list {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+.blog-box * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scheme-1--brand) var(--color-scheme-1--brand);
 }
 
 .blog-box::-webkit-scrollbar,
-.blog-box_list-wrapper::-webkit-scrollbar,
-.blog-box_list-wrapper .w-dyn-list::-webkit-scrollbar,
-.blog-box_list::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
+.blog-box *::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-scheme-1--brand);
+}
+
+.blog-box::-webkit-scrollbar-track,
+.blog-box::-webkit-scrollbar-track-piece,
+.blog-box::-webkit-scrollbar-thumb,
+.blog-box::-webkit-scrollbar-button,
+.blog-box::-webkit-scrollbar-corner,
+.blog-box *::-webkit-scrollbar-track,
+.blog-box *::-webkit-scrollbar-track-piece,
+.blog-box *::-webkit-scrollbar-thumb,
+.blog-box *::-webkit-scrollbar-button,
+.blog-box *::-webkit-scrollbar-corner {
+  background-color: var(--color-scheme-1--brand) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
