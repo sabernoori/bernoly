@@ -412,14 +412,22 @@ html {
   max-width: 100%;
 }
 
-/* Keep overflow scroll; hide the native bar (Webflow has no control for this). */
+/* Keep overflow so JS can still scrollLeft; hide the native bar. */
+.blog-box,
+.blog-box_list-wrapper,
+.blog-box_list-wrapper .w-dyn-list,
 .blog-box_list {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
+.blog-box::-webkit-scrollbar,
+.blog-box_list-wrapper::-webkit-scrollbar,
+.blog-box_list-wrapper .w-dyn-list::-webkit-scrollbar,
 .blog-box_list::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
