@@ -233,3 +233,67 @@
   apply();
 })();
 
+(function () {
+  var lists = document.querySelectorAll(".blog-box_list");
+  if (!lists.length) return;
+
+  var DRAG_THRESHOLD = 6;
+
+  function canScroll(el) {
+    return el.scrollWidth - el.clientWidth > 1;
+  }
+
+  lists.forEach(function (el) {
+    var pointerId = null;
+    var startX = 0;
+    var startScroll = 0;
+    var dragged = false;
+
+    function endDrag(e) {
+      if (pointerId === null || (e && e.pointerId !== pointerId)) return;
+      el.classList.remove("is-dragging");
+      try {
+        el.releasePointerCapture(pointerId);
+      } catch (err) {}
+      pointerId = null;
+    }
+
+    el.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      if (e.button !== 0) return;
+      if (!canScroll(el)) return;
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      startScroll = el.scrollLeft;
+      dragged = false;
+      el.classList.add("is-dragging");
+      el.setPointerCapture(e.pointerId);
+    });
+
+    el.addEventListener("pointermove", function (e) {
+      if (e.pointerId !== pointerId) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > DRAG_THRESHOLD) dragged = true;
+      el.scrollLeft = startScroll - dx;
+    });
+
+    el.addEventListener("pointerup", endDrag);
+    el.addEventListener("pointercancel", endDrag);
+    el.addEventListener("lostpointercapture", function () {
+      el.classList.remove("is-dragging");
+      pointerId = null;
+    });
+
+    el.addEventListener(
+      "click",
+      function (e) {
+        if (!dragged) return;
+        e.preventDefault();
+        e.stopPropagation();
+        dragged = false;
+      },
+      true
+    );
+  });
+})();
+

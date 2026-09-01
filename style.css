@@ -428,6 +428,21 @@ html {
   display: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .blog-box_list {
+    cursor: grab;
+  }
+
+  .blog-box_list.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .blog-box_list.is-dragging a {
+    pointer-events: none;
+  }
+}
+
 .solutions_image-wrapper3 {
   overflow: hidden;
 }
