@@ -418,6 +418,16 @@ html {
   max-width: 100%;
 }
 
+/* Keep overflow scroll; hide the native bar (Webflow has no control for this). */
+.blog-box_list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.blog-box_list::-webkit-scrollbar {
+  display: none;
+}
+
 .solutions_image-wrapper3 {
   overflow: hidden;
 }
