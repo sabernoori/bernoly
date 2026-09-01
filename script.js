@@ -89,6 +89,22 @@
     return el.offsetHeight + 5 * rem;
   }
 
+  function syncSlot() {
+    var slot = items[0];
+    var top = slot.offsetTop;
+    var left = slot.offsetLeft;
+    var width = slot.offsetWidth;
+    var height = slot.offsetHeight;
+    for (var i = 1; i < count; i++) {
+      items[i].style.top = top + "px";
+      items[i].style.left = left + "px";
+      items[i].style.width = width + "px";
+      items[i].style.height = height + "px";
+      items[i].style.right = "auto";
+      items[i].style.bottom = "auto";
+    }
+  }
+
   function setTrackHeight() {
     if (reducedMq.matches) {
       section.style.height = "";
@@ -144,6 +160,7 @@
     ticking = false;
     if (reducedMq.matches) return;
     readRem();
+    syncSlot();
     var progress = pinProgress();
     for (var i = 0; i < count; i++) {
       applyState(items[i], cardState(i, progress), instant);
@@ -165,6 +182,12 @@
     el.style.transform = "";
     el.style.pointerEvents = "";
     el.style.zIndex = "";
+    el.style.top = "";
+    el.style.left = "";
+    el.style.width = "";
+    el.style.height = "";
+    el.style.right = "";
+    el.style.bottom = "";
   }
 
   function onChange() {
@@ -179,6 +202,7 @@
 
   readRem();
   setTrackHeight();
+  syncSlot();
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onChange, { passive: true });
   reducedMq.addEventListener("change", onChange);

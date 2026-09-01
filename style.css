@@ -312,7 +312,7 @@ img.img-ice-block {
   max-width: none;
   padding: 6rem 0;
   box-sizing: border-box;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .section_process .container-large,
@@ -327,7 +327,7 @@ img.img-ice-block {
   height: auto;
   margin: 0;
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .section_process .process_cards-list {
@@ -336,7 +336,7 @@ img.img-ice-block {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .section_process .process_heading.is-list-title {
@@ -371,13 +371,13 @@ img.img-ice-block {
   transform: translate3d(0, calc(-100% - 5rem), 0);
 }
 
+.section_process .process_card-item:first-of-type {
+  overflow: hidden;
+}
+
 .section_process .process_card-item ~ .process_card-item {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -390,7 +390,8 @@ img.img-ice-block {
   }
 
   .section_process > .padding-global,
-  .section_process .process_container {
+  .section_process .process_container,
+  .section_process .process_cards-list {
     position: relative !important;
     overflow: visible !important;
     padding-top: 0 !important;
