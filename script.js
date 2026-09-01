@@ -98,7 +98,7 @@
       section.style.height = "";
       return;
     }
-    section.style.height = "calc(100vh * " + (count + 1.5) + ")";
+    section.style.height = "calc(100vh * " + (1 + count * 0.5) + ")";
   }
 
   function pinProgress() {
