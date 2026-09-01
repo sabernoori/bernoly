@@ -364,8 +364,7 @@ img.img-ice-block {
   .section_process,
   .section_process > .padding-global,
   .section_process .container-large,
-  .section_process .process_container,
-  .section_process .process_cards-list {
+  .section_process .process_container  {
     height: auto !important;
   }
 
@@ -373,7 +372,6 @@ img.img-ice-block {
   .section_process .process_container,
   .section_process .process_cards-list {
     position: relative !important;
-    overflow: visible !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
