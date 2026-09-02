@@ -442,6 +442,22 @@ html {
   box-shadow: none !important;
 }
 
+/* Native swipe on phones/tablets. Desktop keeps overflow hidden + JS drag. */
+@media (hover: none), (pointer: coarse) {
+  .blog-box_list-wrapper,
+  .blog-box_list-wrapper .w-dyn-list {
+    overflow: visible !important;
+  }
+
+  .blog-box_list {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    cursor: auto;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .blog-box_list {
     cursor: grab;

@@ -238,15 +238,21 @@
   if (!lists.length) return;
 
   var DRAG_THRESHOLD = 6;
+  var desktopMq = window.matchMedia("(hover: hover) and (pointer: fine)");
 
   function canScroll(el) {
     return el.scrollWidth - el.clientWidth > 1;
+  }
+
+  function isDesktopPointer(e) {
+    return e.pointerType === "mouse" || e.pointerType === "pen";
   }
 
   lists.forEach(function (el) {
     el.addEventListener(
       "wheel",
       function (e) {
+        if (!desktopMq.matches) return;
         e.preventDefault();
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
           var dy = e.deltaY;
@@ -273,7 +279,7 @@
     }
 
     el.addEventListener("pointerdown", function (e) {
-      if (e.pointerType === "touch") return;
+      if (!isDesktopPointer(e)) return;
       if (e.button !== 0) return;
       if (!canScroll(el)) return;
       pointerId = e.pointerId;
