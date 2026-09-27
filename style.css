@@ -68,7 +68,8 @@ img.img-ice-block {
       left 300ms ease,
       right 300ms ease,
       max-width 300ms ease,
-      border-radius 300ms ease;
+      border-radius 300ms ease,
+      width 300ms ease;
   }
 
   .navbar_component.is-nav-hidden {
@@ -94,7 +95,8 @@ img.img-ice-block {
       left 300ms ease,
       right 300ms ease,
       max-width 300ms ease,
-      border-radius 300ms ease;
+      border-radius 300ms ease, 
+      width 300ms ease;
   }
 }
 
