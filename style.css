@@ -60,16 +60,14 @@ img.img-ice-block {
 
   .navbar_component .navbar_parent {
     box-sizing: border-box;
-    left: 1rem;
-    right: 1rem;
     width: calc(100% - 2rem) !important;
     max-width: 84rem;
+    margin-left: auto;
+    margin-right: auto;
     transition:
-      left 300ms ease,
-      right 300ms ease,
+      width 300ms ease,
       max-width 300ms ease,
-      border-radius 300ms ease,
-      width 300ms ease;
+      border-radius 300ms ease;
   }
 
   .navbar_component.is-nav-hidden {
@@ -86,17 +84,13 @@ img.img-ice-block {
   }
 
   .navbar_component.is-nav-scrolled .navbar_parent {
-    left: 0;
-    right: 0;
-    width: 100% !important;
-    max-width: 100%;
+    width: calc(100% - 0rem) !important;
+    max-width: 240rem;
     border-radius: 0 !important;
     transition:
-      left 300ms ease,
-      right 300ms ease,
+      width 300ms ease,
       max-width 300ms ease,
-      border-radius 300ms ease, 
-      width 300ms ease;
+      border-radius 300ms ease;
   }
 }
 
