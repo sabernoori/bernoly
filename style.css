@@ -59,11 +59,11 @@ img.img-ice-block {
   }
 
   .navbar_component .navbar_parent {
-    width: calc(100% - 2rem);
+    width: calc(100% - 2rem) !important;
     transition:
-      width 300ms ease,
-      max-width 300ms ease,
-      border-radius 300ms ease;
+      width 300ms ease !important,
+      max-width 300ms ease !important,
+      border-radius 300ms ease !important;
   }
 
   .navbar_component.is-nav-hidden {
@@ -80,9 +80,9 @@ img.img-ice-block {
   }
 
   .navbar_component.is-nav-scrolled .navbar_parent {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
   }
 }
 
