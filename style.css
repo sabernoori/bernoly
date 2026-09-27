@@ -59,7 +59,9 @@ img.img-ice-block {
   }
 
   .navbar_component .navbar_parent {
+    width: calc(100% - 2rem);
     transition:
+      width 300ms ease,
       max-width 300ms ease,
       border-radius 300ms ease;
   }
@@ -78,6 +80,7 @@ img.img-ice-block {
   }
 
   .navbar_component.is-nav-scrolled .navbar_parent {
+    width: 100%;
     max-width: 100%;
     border-radius: 0;
   }
