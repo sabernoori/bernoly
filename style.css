@@ -510,3 +510,20 @@ html {
     width: min(18.5rem, 100%);
   }
 }
+
+
+
+#exp_flow_desktop, 
+.margin-bottom .margin-large .destop-only-section {
+  scroll-margin-top: 7.5rem;
+}
+
+#Staff_exp, 
+.margin-bottom .margin-large {
+  scroll-margin-top: 7.5rem;
+}
+
+#data_atlas, 
+.margin-bottom .margin-large {
+  scroll-margin-top: 7.5rem;
+}
