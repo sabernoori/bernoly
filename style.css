@@ -64,7 +64,6 @@ img.img-ice-block {
     right: 1rem;
     max-width: 84 rem;
     width: auto !important;
-    max-width: none !important;
     transition:
       left 300ms ease,
       right 300ms ease,
