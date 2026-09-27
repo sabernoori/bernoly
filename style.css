@@ -60,11 +60,13 @@ img.img-ice-block {
 
   .navbar_component .navbar_parent {
     box-sizing: border-box;
-    width: calc(100% - 2rem) !important;
-    max-width: calc(100% - 2rem) !important;
+    left: 1rem;
+    right: 1rem;
+    width: auto !important;
+    max-width: none !important;
     transition:
-      width 300ms ease,
-      max-width 300ms ease,
+      left 300ms ease,
+      right 300ms ease,
       border-radius 300ms ease;
   }
 
@@ -82,9 +84,15 @@ img.img-ice-block {
   }
 
   .navbar_component.is-nav-scrolled .navbar_parent {
-    width: 100% !important;
-    max-width: 100% !important;
+    left: 0;
+    right: 0;
+    width: auto !important;
+    max-width: none !important;
     border-radius: 0 !important;
+    transition:
+      left 300ms ease,
+      right 300ms ease,
+      border-radius 300ms ease;
   }
 }
 
