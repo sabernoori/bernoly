@@ -62,7 +62,7 @@ img.img-ice-block {
     box-sizing: border-box;
     left: 1rem;
     right: 1rem;
-    width: auto !important;
+    width: calc(100% - 2rem) !important;
     max-width: 84rem;
     transition:
       left 300ms ease,
@@ -87,8 +87,8 @@ img.img-ice-block {
   .navbar_component.is-nav-scrolled .navbar_parent {
     left: 0;
     right: 0;
-    width: auto !important;
-    max-width: 100vw;
+    width: 100% !important;
+    max-width: 100%;
     border-radius: 0 !important;
     transition:
       left 300ms ease,
